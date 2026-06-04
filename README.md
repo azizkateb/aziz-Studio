@@ -1,7 +1,7 @@
-# Adox Studio — Dark Editorial Agency Site
+# Aziz Studio — Dark Editorial Agency Site
 
 A cinematic, motion-driven design-agency website built to the exact spec, inspired by
-[adoxstudio.webflow.io](http://adoxstudio.webflow.io/). Brutalist dark editorial aesthetic,
+[azizstudio.webflow.io](http://azizstudio.webflow.io/). Brutalist dark editorial aesthetic,
 raw typography, GSAP-driven scroll animations.
 
 ## Stack

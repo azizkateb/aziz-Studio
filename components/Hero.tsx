@@ -89,7 +89,7 @@ export default function Hero() {
       <div className="hero-image" />
       <div className="hero-cover" ref={cover}>
         <h1 className="hero-logo">
-          <span className="adox hero-word">Aziz</span>{' '}
+          <span className="aziz hero-word">Aziz</span>{' '}
           <span className="studio hero-word">Studio</span>
         </h1>
         <div className="hero-meta">

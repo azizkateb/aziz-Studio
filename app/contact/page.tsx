@@ -12,7 +12,7 @@ export default function Contact() {
       <section className="contact-wrap">
         <div className="container">
           <h1 className="hero-logo">
-            <span className="adox">Adox</span>{' '}<span className="studio">Studio</span>
+            <span className="aziz">Aziz</span>{' '}<span className="studio">Studio</span>
           </h1>
           <div className="crumb">Home &rarr; Contact</div>
 
@@ -20,7 +20,7 @@ export default function Contact() {
             <div className="contact-info">
               <div className="row">
                 <div className="k">Email</div>
-                <a className="v ul-link" href="mailto:hello@adoxstudio.com">HELLO@ADOXSTUDIO.COM</a>
+                <a className="v ul-link" href="mailto:hello@azizstudio.com">HELLO@AZIZSTUDIO.COM</a>
               </div>
               <div className="row">
                 <div className="k">Phone</div>
