@@ -39,7 +39,7 @@ function ContactForm({ key }) {
       <ValidationError field="name" errors={state.errors} />
       <input type="email" name="email" placeholder="Your Email" required />
       <ValidationError field="email" errors={state.errors} />
-      <textarea name="message" rows="4" placeholder="Tell us about your project..." required></textarea>
+      <textarea name="message" rows={4} placeholder="Tell us about your project..." required></textarea>
       <ValidationError field="message" errors={state.errors} />
       <button type="submit" className="cta-modal-send" disabled={state.submitting}>
         {state.submitting ? 'Sending...' : 'Send Message'}
