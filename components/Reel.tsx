@@ -1,8 +1,10 @@
-'use client';
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-if (typeof window !== 'undefined') { gsap.registerPlugin(ScrollTrigger); }
+"use client";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Reel() {
   const [open, setOpen] = useState(false);
@@ -13,27 +15,67 @@ export default function Reel() {
   useEffect(() => {
     if (open && back.current && inner.current) {
       gsap.fromTo(back.current, { opacity: 0 }, { opacity: 1, duration: 0.3 });
-      gsap.fromTo(inner.current, { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out' });
+      gsap.fromTo(
+        inner.current,
+        { scale: 0.92, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.4, ease: "power3.out" },
+      );
     }
   }, [open]);
 
   useEffect(() => {
     if (!thumb.current) return;
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.reel', start: 'top top', end: '+=1200',
-        scrub: 1, pin: true, anticipatePin: 1,
-      },
+    const media = gsap.matchMedia();
+    media.add("(min-width: 768px)", () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".reel",
+          start: "top top",
+          end: "+=1200",
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+        },
+      });
+      tl.fromTo(
+        thumb.current,
+        { width: 340, height: 200, borderRadius: 12 },
+        {
+          width: () => window.innerWidth,
+          height: () => window.innerHeight,
+          borderRadius: 0,
+          ease: "none",
+        },
+      );
+      return () => {
+        tl.scrollTrigger?.kill();
+        tl.kill();
+      };
     });
-    tl.fromTo(thumb.current,
-      { width: 340, height: 200, borderRadius: 12 },
-      { width: () => window.innerWidth, height: () => window.innerHeight, borderRadius: 0, ease: 'none' }
-    );
+
+    media.add("(max-width: 767px)", () => {
+      gsap.fromTo(
+        thumb.current,
+        { opacity: 0, scale: 0.82 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ".reel", start: "top 75%" },
+        },
+      );
+    });
     const refresh = () => ScrollTrigger.refresh();
-    window.addEventListener('load', refresh);
-    window.addEventListener('resize', refresh);
+    window.addEventListener("load", refresh);
+    window.addEventListener("resize", refresh);
     const t = setTimeout(refresh, 600);
-    return () => { tl.scrollTrigger?.kill(); tl.kill(); window.removeEventListener('load', refresh); window.removeEventListener('resize', refresh); clearTimeout(t); };
+    return () => {
+      media.revert();
+      window.removeEventListener("load", refresh);
+      window.removeEventListener("resize", refresh);
+      clearTimeout(t);
+    };
   }, []);
 
   return (
@@ -51,8 +93,17 @@ export default function Reel() {
       {open && (
         <div className="lb" ref={back} onClick={() => setOpen(false)}>
           <div className="lb-close">&#10005;</div>
-          <div className="lb-inner" ref={inner} onClick={(e) => e.stopPropagation()}>
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" title="Reel" allow="autoplay; encrypted-media" allowFullScreen />
+          <div
+            className="lb-inner"
+            ref={inner}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <iframe
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+              title="Reel"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            />
           </div>
         </div>
       )}
